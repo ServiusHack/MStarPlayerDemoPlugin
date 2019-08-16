@@ -7,7 +7,7 @@
 
 #define DLLEXPORT extern"C" __declspec(dllexport)
 
-ScopedPointer<Dialog> dialogComponent;
+std::unique_ptr<Dialog> dialogComponent;
 
 DLLEXPORT int mstarPluginVersion()
 {
@@ -22,7 +22,7 @@ DLLEXPORT void init(const PluginInterface::Init& pInit)
 DLLEXPORT void configure()
 {
     DialogWindow::LaunchOptions dialogLaunchOptions;
-    dialogComponent = ScopedPointer<Dialog>(new Dialog());
+    dialogComponent = std::make_unique<Dialog>();
 
     dialogLaunchOptions.dialogTitle = "Log Plugin";
     dialogLaunchOptions.content.setNonOwned(dialogComponent.get());
@@ -91,7 +91,7 @@ DLLEXPORT void positionChanged(const char* player_name, double position)
 
 DLLEXPORT void shutdown()
 {
-    delete dialogComponent.release();
+    dialogComponent.reset();
 }
 
 DLLEXPORT void loadConfiguration(const char* /*configurationText*/)
