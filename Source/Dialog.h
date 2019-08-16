@@ -7,12 +7,12 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Projucer version: 5.1.1
+  Created with Projucer version: 6.0.1
 
   ------------------------------------------------------------------------------
 
-  The Projucer is part of the JUCE library - "Jules' Utility Class Extensions"
-  Copyright (c) 2015 - ROLI Ltd.
+  The Projucer is part of the JUCE library.
+  Copyright (c) 2020 - Raw Material Software Limited.
 
   ==============================================================================
 */
@@ -34,23 +34,23 @@
                                                                     //[/Comments]
 */
 class Dialog  : public Component,
-                public ComboBoxListener,
-                public ButtonListener
+                public juce::ComboBox::Listener,
+                public juce::Button::Listener
 {
 public:
     //==============================================================================
     Dialog ();
-    ~Dialog();
+    ~Dialog() override;
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
     void addLogLine(String line);
     //[/UserMethods]
 
-    void paint (Graphics& g) override;
+    void paint (juce::Graphics& g) override;
     void resized() override;
-    void comboBoxChanged (ComboBox* comboBoxThatHasChanged) override;
-    void buttonClicked (Button* buttonThatWasClicked) override;
+    void comboBoxChanged (juce::ComboBox* comboBoxThatHasChanged) override;
+    void buttonClicked (juce::Button* buttonThatWasClicked) override;
 
 
 
@@ -59,19 +59,19 @@ private:
     //[/UserVariables]
 
     //==============================================================================
-    ScopedPointer<GroupComponent> playerTracksGroup;
-    ScopedPointer<GroupComponent> playerActionGroup;
-    ScopedPointer<GroupComponent> playerSelectionGroup;
-    ScopedPointer<ComboBox> playerBox;
-    ScopedPointer<TextButton> refreshButton;
-    ScopedPointer<TextButton> playButton;
-    ScopedPointer<TextButton> stopButton;
-    ScopedPointer<TextButton> nextButton;
-    ScopedPointer<TextButton> previousButton;
-    ScopedPointer<TextButton> refreshTracksButton;
-    ScopedPointer<GroupComponent> activityLogGroup;
-    ScopedPointer<TextEditor> activityEditor;
-    ScopedPointer<TextEditor> tracksEditor;
+    std::unique_ptr<juce::GroupComponent> playerTracksGroup;
+    std::unique_ptr<juce::GroupComponent> playerActionGroup;
+    std::unique_ptr<juce::GroupComponent> playerSelectionGroup;
+    std::unique_ptr<juce::ComboBox> playerBox;
+    std::unique_ptr<juce::TextButton> refreshButton;
+    std::unique_ptr<juce::TextButton> playButton;
+    std::unique_ptr<juce::TextButton> stopButton;
+    std::unique_ptr<juce::TextButton> nextButton;
+    std::unique_ptr<juce::TextButton> previousButton;
+    std::unique_ptr<juce::TextButton> refreshTracksButton;
+    std::unique_ptr<juce::GroupComponent> activityLogGroup;
+    std::unique_ptr<juce::TextEditor> activityEditor;
+    std::unique_ptr<juce::TextEditor> tracksEditor;
 
 
     //==============================================================================
@@ -80,3 +80,4 @@ private:
 
 //[EndFile] You can add extra defines here...
 //[/EndFile]
+

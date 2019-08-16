@@ -7,12 +7,12 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Projucer version: 5.1.1
+  Created with Projucer version: 6.0.1
 
   ------------------------------------------------------------------------------
 
-  The Projucer is part of the JUCE library - "Jules' Utility Class Extensions"
-  Copyright (c) 2015 - ROLI Ltd.
+  The Projucer is part of the JUCE library.
+  Copyright (c) 2020 - Raw Material Software Limited.
 
   ==============================================================================
 */
@@ -33,66 +33,79 @@ Dialog::Dialog ()
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
 
-    addAndMakeVisible (playerTracksGroup = new GroupComponent ("new group",
-                                                               TRANS("Player Tracks")));
+    playerTracksGroup.reset (new juce::GroupComponent ("new group",
+                                                       TRANS("Player Tracks")));
+    addAndMakeVisible (playerTracksGroup.get());
 
-    addAndMakeVisible (playerActionGroup = new GroupComponent ("new group",
-                                                               TRANS("Player Action")));
+    playerActionGroup.reset (new juce::GroupComponent ("new group",
+                                                       TRANS("Player Action")));
+    addAndMakeVisible (playerActionGroup.get());
 
-    addAndMakeVisible (playerSelectionGroup = new GroupComponent ("new group",
-                                                                  TRANS("Player Selection")));
+    playerSelectionGroup.reset (new juce::GroupComponent ("new group",
+                                                          TRANS("Player Selection")));
+    addAndMakeVisible (playerSelectionGroup.get());
 
-    addAndMakeVisible (playerBox = new ComboBox ("new combo box"));
+    playerBox.reset (new juce::ComboBox ("new combo box"));
+    addAndMakeVisible (playerBox.get());
     playerBox->setEditableText (false);
-    playerBox->setJustificationType (Justification::centredLeft);
-    playerBox->setTextWhenNothingSelected (String());
+    playerBox->setJustificationType (juce::Justification::centredLeft);
+    playerBox->setTextWhenNothingSelected (juce::String());
     playerBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
     playerBox->addListener (this);
 
-    addAndMakeVisible (refreshButton = new TextButton ("new button"));
+    refreshButton.reset (new juce::TextButton ("new button"));
+    addAndMakeVisible (refreshButton.get());
     refreshButton->setButtonText (TRANS("refresh"));
     refreshButton->addListener (this);
 
-    addAndMakeVisible (playButton = new TextButton ("new button"));
+    playButton.reset (new juce::TextButton ("new button"));
+    addAndMakeVisible (playButton.get());
     playButton->setButtonText (TRANS("play"));
     playButton->addListener (this);
 
-    addAndMakeVisible (stopButton = new TextButton ("new button"));
+    stopButton.reset (new juce::TextButton ("new button"));
+    addAndMakeVisible (stopButton.get());
     stopButton->setButtonText (TRANS("stop"));
     stopButton->addListener (this);
 
-    addAndMakeVisible (nextButton = new TextButton ("new button"));
+    nextButton.reset (new juce::TextButton ("new button"));
+    addAndMakeVisible (nextButton.get());
     nextButton->setButtonText (TRANS("next"));
     nextButton->addListener (this);
 
-    addAndMakeVisible (previousButton = new TextButton ("new button"));
+    previousButton.reset (new juce::TextButton ("new button"));
+    addAndMakeVisible (previousButton.get());
     previousButton->setButtonText (TRANS("previous"));
     previousButton->addListener (this);
 
-    addAndMakeVisible (refreshTracksButton = new TextButton ("new button"));
+    refreshTracksButton.reset (new juce::TextButton ("new button"));
+    addAndMakeVisible (refreshTracksButton.get());
     refreshTracksButton->setButtonText (TRANS("refresh"));
     refreshTracksButton->addListener (this);
 
-    addAndMakeVisible (activityLogGroup = new GroupComponent ("new group",
-                                                              TRANS("Activity Log")));
+    activityLogGroup.reset (new juce::GroupComponent ("new group",
+                                                      TRANS("Activity Log")));
+    addAndMakeVisible (activityLogGroup.get());
 
-    addAndMakeVisible (activityEditor = new TextEditor ("new text editor"));
+    activityEditor.reset (new juce::TextEditor ("new text editor"));
+    addAndMakeVisible (activityEditor.get());
     activityEditor->setMultiLine (true);
     activityEditor->setReturnKeyStartsNewLine (true);
     activityEditor->setReadOnly (true);
     activityEditor->setScrollbarsShown (true);
     activityEditor->setCaretVisible (false);
     activityEditor->setPopupMenuEnabled (true);
-    activityEditor->setText (String());
+    activityEditor->setText (juce::String());
 
-    addAndMakeVisible (tracksEditor = new TextEditor ("new text editor"));
+    tracksEditor.reset (new juce::TextEditor ("new text editor"));
+    addAndMakeVisible (tracksEditor.get());
     tracksEditor->setMultiLine (true);
     tracksEditor->setReturnKeyStartsNewLine (false);
     tracksEditor->setReadOnly (true);
     tracksEditor->setScrollbarsShown (true);
     tracksEditor->setCaretVisible (false);
     tracksEditor->setPopupMenuEnabled (true);
-    tracksEditor->setText (String());
+    tracksEditor->setText (juce::String());
 
 
     //[UserPreSize]
@@ -130,12 +143,12 @@ Dialog::~Dialog()
 }
 
 //==============================================================================
-void Dialog::paint (Graphics& g)
+void Dialog::paint (juce::Graphics& g)
 {
     //[UserPrePaint] Add your own custom painting code here..
     //[/UserPrePaint]
 
-    g.fillAll (Colour (0xff323e44));
+    g.fillAll (juce::Colour (0xff323e44));
 
     //[UserPaint] Add your own custom painting code here..
     //[/UserPaint]
@@ -151,10 +164,10 @@ void Dialog::resized()
     playerSelectionGroup->setBounds (8, 8, getWidth() - 16, 64);
     playerBox->setBounds (24, 32, getWidth() - 139, 24);
     refreshButton->setBounds (getWidth() - 99, 32, 78, 24);
-    playButton->setBounds (24, 112, proportionOfWidth (0.4398f), 24);
-    stopButton->setBounds (24, 152, proportionOfWidth (0.4398f), 24);
-    nextButton->setBounds (getWidth() - 27 - proportionOfWidth (0.4398f), 112, proportionOfWidth (0.4398f), 24);
-    previousButton->setBounds (getWidth() - 27 - proportionOfWidth (0.4398f), 152, proportionOfWidth (0.4398f), 24);
+    playButton->setBounds (24, 112, proportionOfWidth (0.4399f), 24);
+    stopButton->setBounds (24, 152, proportionOfWidth (0.4399f), 24);
+    nextButton->setBounds (getWidth() - 27 - proportionOfWidth (0.4399f), 112, proportionOfWidth (0.4399f), 24);
+    previousButton->setBounds (getWidth() - 27 - proportionOfWidth (0.4399f), 152, proportionOfWidth (0.4399f), 24);
     refreshTracksButton->setBounds (getWidth() - 99, 224, 78, 24);
     activityLogGroup->setBounds (8, 400, getWidth() - 16, getHeight() - 400);
     activityEditor->setBounds (32, 424, getWidth() - 59, getHeight() - 445);
@@ -163,12 +176,12 @@ void Dialog::resized()
     //[/UserResized]
 }
 
-void Dialog::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
+void Dialog::comboBoxChanged (juce::ComboBox* comboBoxThatHasChanged)
 {
     //[UsercomboBoxChanged_Pre]
     //[/UsercomboBoxChanged_Pre]
 
-    if (comboBoxThatHasChanged == playerBox)
+    if (comboBoxThatHasChanged == playerBox.get())
     {
         //[UserComboBoxCode_playerBox] -- add your combo box handling code here..
         //[/UserComboBoxCode_playerBox]
@@ -178,12 +191,12 @@ void Dialog::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
     //[/UsercomboBoxChanged_Post]
 }
 
-void Dialog::buttonClicked (Button* buttonThatWasClicked)
+void Dialog::buttonClicked (juce::Button* buttonThatWasClicked)
 {
     //[UserbuttonClicked_Pre]
     //[/UserbuttonClicked_Pre]
 
-    if (buttonThatWasClicked == refreshButton)
+    if (buttonThatWasClicked == refreshButton.get())
     {
         //[UserButtonCode_refreshButton] -- add your button handler code here..
         playerBox->clear();
@@ -200,31 +213,31 @@ void Dialog::buttonClicked (Button* buttonThatWasClicked)
         g_init.listPlayers(callback, &addPlayer);
         //[/UserButtonCode_refreshButton]
     }
-    else if (buttonThatWasClicked == playButton)
+    else if (buttonThatWasClicked == playButton.get())
     {
         //[UserButtonCode_playButton] -- add your button handler code here..
         g_init.play(playerBox->getText().toRawUTF8());
         //[/UserButtonCode_playButton]
     }
-    else if (buttonThatWasClicked == stopButton)
+    else if (buttonThatWasClicked == stopButton.get())
     {
         //[UserButtonCode_stopButton] -- add your button handler code here..
         g_init.stop(playerBox->getText().toRawUTF8());
         //[/UserButtonCode_stopButton]
     }
-    else if (buttonThatWasClicked == nextButton)
+    else if (buttonThatWasClicked == nextButton.get())
     {
         //[UserButtonCode_nextButton] -- add your button handler code here..
         g_init.next(playerBox->getText().toRawUTF8());
         //[/UserButtonCode_nextButton]
     }
-    else if (buttonThatWasClicked == previousButton)
+    else if (buttonThatWasClicked == previousButton.get())
     {
         //[UserButtonCode_previousButton] -- add your button handler code here..
         g_init.previous(playerBox->getText().toRawUTF8());
         //[/UserButtonCode_previousButton]
     }
-    else if (buttonThatWasClicked == refreshTracksButton)
+    else if (buttonThatWasClicked == refreshTracksButton.get())
     {
         //[UserButtonCode_refreshTracksButton] -- add your button handler code here..
         tracksEditor->clear();
@@ -293,16 +306,16 @@ BEGIN_JUCER_METADATA
               virtualName="" explicitFocusOrder="0" pos="99R 32 78 24" buttonText="refresh"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="new button" id="782524494342ddb2" memberName="playButton"
-              virtualName="" explicitFocusOrder="0" pos="24 112 43.994% 24"
+              virtualName="" explicitFocusOrder="0" pos="24 112 43.956% 24"
               buttonText="play" connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="new button" id="a697f73c0108e251" memberName="stopButton"
-              virtualName="" explicitFocusOrder="0" pos="24 152 43.994% 24"
+              virtualName="" explicitFocusOrder="0" pos="24 152 43.956% 24"
               buttonText="stop" connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="new button" id="b87e4e67dd2f57e2" memberName="nextButton"
-              virtualName="" explicitFocusOrder="0" pos="27Rr 112 43.994% 24"
+              virtualName="" explicitFocusOrder="0" pos="27Rr 112 43.956% 24"
               buttonText="next" connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="new button" id="f3a85ddec6b3d359" memberName="previousButton"
-              virtualName="" explicitFocusOrder="0" pos="27Rr 152 43.994% 24"
+              virtualName="" explicitFocusOrder="0" pos="27Rr 152 43.956% 24"
               buttonText="previous" connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="new button" id="88829d275c38cdf4" memberName="refreshTracksButton"
               virtualName="" explicitFocusOrder="0" pos="99R 224 78 24" buttonText="refresh"
@@ -326,3 +339,4 @@ END_JUCER_METADATA
 
 //[EndFile] You can add extra defines here...
 //[/EndFile]
+
