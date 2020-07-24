@@ -11,15 +11,15 @@ std::unique_ptr<Dialog> dialogComponent;
 
 DLLEXPORT int mstarPluginVersion()
 {
-    return 1;
+    return 2;
 }
 
-DLLEXPORT void init(const PluginInterface::Init& pInit)
+DLLEXPORT void mstarInit(const PluginInterface::V2::Init& pInit)
 {
     g_init = pInit;
 }
 
-DLLEXPORT void configure()
+DLLEXPORT void mstarConfigure()
 {
     DialogWindow::LaunchOptions dialogLaunchOptions;
     dialogComponent = std::make_unique<Dialog>();
@@ -32,7 +32,7 @@ DLLEXPORT void configure()
     dialogLaunchOptions.launchAsync();
 }
 
-DLLEXPORT void playingStateChanged(const char* player_name, bool is_playing)
+DLLEXPORT void mstarPlayingStateChanged(const char* player_name, bool is_playing)
 {
     if (!dialogComponent)
         return;
@@ -41,7 +41,7 @@ DLLEXPORT void playingStateChanged(const char* player_name, bool is_playing)
     dialogComponent->addLogLine(line);
 }
 
-DLLEXPORT void nextEntrySelected(const char* player_name)
+DLLEXPORT void mstarNextEntrySelected(const char* player_name)
 {
     if (!dialogComponent)
         return;
@@ -50,7 +50,7 @@ DLLEXPORT void nextEntrySelected(const char* player_name)
     dialogComponent->addLogLine(line);
 }
 
-DLLEXPORT void previousEntrySelected(const char* player_name)
+DLLEXPORT void mstarPreviousEntrySelected(const char* player_name)
 {
     if (!dialogComponent)
         return;
@@ -59,16 +59,34 @@ DLLEXPORT void previousEntrySelected(const char* player_name)
     dialogComponent->addLogLine(line);
 }
 
-DLLEXPORT void playlistEntrySelected(const char* player_name, int entry_index)
+DLLEXPORT void mstarPlaylistEntrySelected(const char* player_name, int entry_index, const char* playlistEntryName, double duration)
 {
     if (!dialogComponent)
         return;
 
-    String line = "[" + String(player_name) + "] playlist entry " + String(entry_index) + " selected";
+    String line = "[" + String(player_name) + "] playlist entry " + String(entry_index) + " with name '" + playlistEntryName + "' and duration " + String(duration) + " selected";
     dialogComponent->addLogLine(line);
 }
 
-DLLEXPORT void trackVolumeChanged(const char* player_name, const char* track_name, float volume)
+DLLEXPORT void mstarPlaylistEntryNameChanged(const char* player_name, int entry_index, const char* playlistEntryName)
+{
+    if (!dialogComponent)
+        return;
+
+    String line = "[" + String(player_name) + "] playlist entry " + String(entry_index) + " changed name to '" + playlistEntryName + "'";
+    dialogComponent->addLogLine(line);
+}
+
+DLLEXPORT void mstarPlaylistEntryDurationChanged(const char* player_name, int playlist_index, double duration)
+{
+    if (!dialogComponent)
+        return;
+
+    String line = "[" + String(player_name) + "] playlist entry " + String(playlist_index) + " changed duration to " +  String(duration);
+    dialogComponent->addLogLine(line);
+}
+
+DLLEXPORT void mstarTrackVolumeChanged(const char* player_name, const char* track_name, float volume)
 {
     if (!dialogComponent)
         return;
@@ -77,7 +95,7 @@ DLLEXPORT void trackVolumeChanged(const char* player_name, const char* track_nam
     dialogComponent->addLogLine(line);
 }
 
-DLLEXPORT void positionChanged(const char* player_name, double position)
+DLLEXPORT void mstarPositionChanged(const char* player_name, double position)
 {
     if (!dialogComponent)
         return;
@@ -86,20 +104,20 @@ DLLEXPORT void positionChanged(const char* player_name, double position)
     dialogComponent->addLogLine(line);
 }
 
-DLLEXPORT void shutdown()
+DLLEXPORT void mstarShutdown()
 {
     dialogComponent.reset();
 }
 
-DLLEXPORT void loadConfiguration(const char* /*configurationText*/)
+DLLEXPORT void mstarLoadConfiguration(const char* /*configurationText*/)
 {
 }
 
-DLLEXPORT char* getConfiguration()
+DLLEXPORT char* mstarGetConfiguration()
 {
     return nullptr;
 }
 
-DLLEXPORT void freeConfigurationText(const char* /*configurationText*/)
+DLLEXPORT void mstarFreeConfigurationText(const char* /*configurationText*/)
 {
 }

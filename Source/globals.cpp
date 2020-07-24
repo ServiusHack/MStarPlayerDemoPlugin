@@ -9,4 +9,4 @@
 */
 
 #include "globals.h"
-PluginInterface::Init g_init;
+PluginInterface::V2::Init g_init;

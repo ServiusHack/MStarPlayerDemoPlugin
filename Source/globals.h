@@ -10,6 +10,6 @@
 
 #pragma once
 
-#include "PluginInterface.h"
+#include "PluginInterfaceV2.h"
 
-extern PluginInterface::Init g_init;
+extern PluginInterface::V2::Init g_init;

@@ -11,8 +11,8 @@
       <FILE id="lOVjcK" name="globals.cpp" compile="1" resource="0" file="Source/globals.cpp"/>
       <FILE id="A5Qaf5" name="globals.h" compile="0" resource="0" file="Source/globals.h"/>
       <FILE id="CuxGyM" name="plugin.cpp" compile="1" resource="0" file="Source/plugin.cpp"/>
-      <FILE id="TbmQcP" name="PluginInterface.h" compile="0" resource="0"
-            file="Source/PluginInterface.h"/>
+      <FILE id="Wp5J4L" name="PluginInterfaceV2.h" compile="0" resource="0"
+            file="Source/PluginInterfaceV2.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
