@@ -29,10 +29,7 @@ DLLEXPORT void configure()
     dialogLaunchOptions.resizable = false;
     dialogLaunchOptions.escapeKeyTriggersCloseButton = true;
     dialogLaunchOptions.useNativeTitleBar = false;
-    int result = dialogLaunchOptions.runModal();
-
-    if (result == 1)
-        return;
+    dialogLaunchOptions.launchAsync();
 }
 
 DLLEXPORT void playingStateChanged(const char* player_name, bool is_playing)
